@@ -1,0 +1,101 @@
+version: 2
+       
+models:
+  - name: stg_local_bike__brands
+    description: "Liste les marques de vélos vendus. Un ID correspond à une marque."
+    columns:
+      - name: brand_id
+        data_type: int64
+
+  - name: stg_local_bike__categories
+    description: "Liste les catégories de vélos vendus. Un ID correspond à une catégorie. "
+    columns:
+      - name: category_id
+        data_type: int64
+        description: ""  
+        
+  - name: stg_local_bike__customers
+    description: "Liste les clients, avec le numéro de téléphone, l'email, l'adresse, la ville, l'état, et le zip code. 
+                  1445 clients enregistrés. Autant d'emails distincts. Seulement 179 numéros de téléphone."
+    columns:
+      - name: customer_id
+        data_type: int64
+        description: ""
+
+  - name: stg_local_bike__order_items
+    description: ""
+    columns:
+      - name: order_id
+        data_type: int64
+        description: ""
+
+      - name: product_id
+        data_type: int64
+        description: ""
+
+  - name: stg_local_bike__orders
+    description: ""
+    columns:
+      - name: order_id
+        data_type: int64
+        description: ""
+
+      - name: customer_id
+        data_type: int64
+        description: ""
+
+      - name: store_id
+        data_type: int64
+        description: ""
+
+      - name: staff_id
+        data_type: int64
+        description: ""
+
+  - name: stg_local_bike__products
+    description: ""
+    columns:
+      - name: product_id
+        data_type: int64
+        description: ""
+
+      - name: brand_id
+        data_type: int64
+        description: ""
+
+      - name: category_id
+        data_type: int64
+        description: ""
+
+  - name: stg_local_bike__staffs
+    description: ""
+    columns:
+      - name: staff_id
+        data_type: int64
+        description: ""
+
+      - name: store_id
+        data_type: int64
+        description: ""
+
+      - name: manager_id
+        data_type: string
+        description: ""
+
+  - name: stg_local_bike__stocks
+    description: ""
+    columns:
+      - name: store_id
+        data_type: int64
+        description: ""
+
+      - name: product_id
+        data_type: int64
+        description: ""
+
+  - name: stg_local_bike__stores
+    description: ""
+    columns:
+      - name: store_id
+        data_type: int64
+        description: ""
