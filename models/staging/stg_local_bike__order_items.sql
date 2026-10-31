@@ -4,5 +4,6 @@ select
         product_id,
         quantity,
         list_price,
-        discount
+        discount,
+        ROUND((quantity*list_price)-(quantity*list_price*discount),2) AS chiffre_daffaire
 from {{ source('local_bike_project', 'order_items') }}
