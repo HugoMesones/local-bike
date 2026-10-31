@@ -37,17 +37,17 @@ models:
         data_type: int64
         tests:
           - relationships:
-            arguments:
-              to: ref('stg_local_bike__orders')
-              field: order_id
+              arguments:
+                to: ref('stg_local_bike__orders')
+                field: order_id
 
       - name: product_id
         data_type: int64
         tests:
           - relationships:
-            arguments:
-              to: ref('stg_local_bike__products')
-              field: product_id
+              arguments:
+                to: ref('stg_local_bike__products')
+                field: product_id
 
   - name: stg_local_bike__orders
     description: "Liste les commandes : 1615 lignes. Associe une commande à un client, à un statut. Date de commande, date requise (?), date d'envoi. 
@@ -64,32 +64,33 @@ models:
         data_type: int64
         tests:
           - relationships:
-            arguments:
-              to: ref('stg_local_bike__customers')
-              field: customer_id
+              arguments:
+                to: ref('stg_local_bike__customers')
+                field: customer_id
       
       - name: order_status
         data_type: int64
         tests: 
           - accepted_values:
-            arguments: 
-              values: [1,2,3,4]
+              arguments: 
+                values: [1,2,3,4]
+                quote: false
 
       - name: store_id
         data_type: int64
         tests:
           - relationships:
-            arguments:
-              to: ref('stg_local_bike__stores')
-              field: store_id
+              arguments:
+                to: ref('stg_local_bike__stores')
+                field: store_id
 
       - name: staff_id
         data_type: int64
         tests:
           - relationships:
-            arguments:
-              to: ref('stg_local_bike__staffs')
-              field: staff_id
+              arguments:
+                to: ref('stg_local_bike__staffs')
+                field: staff_id
 
   - name: stg_local_bike__products
     description: "Liste les produits, avec le nom, la marque, la catégorie, année du modèle, prix.
@@ -105,17 +106,17 @@ models:
         data_type: int64
         tests:
           - relationships:
-            arguments:
-              to: ref('stg_local_bike__brands')
-              field: brand_id
+              arguments:
+                to: ref('stg_local_bike__brands')
+                field: brand_id
 
       - name: category_id
         data_type: int64
         tests:
           - relationships:
-            arguments:
-              to: ref('stg_local_bike__categories')
-              field: category_id
+              arguments:
+                to: ref('stg_local_bike__categories')
+                field: category_id
 
   - name: stg_local_bike__staffs
     description: "Liste des employés avec nom prénom mail téléphone, magasin rattaché et manager"
@@ -130,9 +131,9 @@ models:
         data_type: int64
         tests:
           - relationships:
-            arguments:
-              to: ref('stg_local_bike__stores')
-              field: store_id
+              arguments:
+                to: ref('stg_local_bike__stores')
+                field: store_id
 
       - name: manager_id
         data_type: string
@@ -146,17 +147,17 @@ models:
         data_type: int64
         tests:
           - relationships:
-            arguments:
-              to: ref('stg_local_bike__stores')
-              field: store_id
+              arguments:
+                to: ref('stg_local_bike__stores')
+                field: store_id
 
       - name: product_id
         data_type: int64
         tests:
           - relationships:
-            arguments:
-              to: ref('stg_local_bike__products')
-              field: product_id
+              arguments:
+                to: ref('stg_local_bike__products')
+                field: product_id
 
   - name: stg_local_bike__stores
     description: "Liste les 3 magasins"
