@@ -6,13 +6,18 @@ models:
     columns:
       - name: brand_id
         data_type: int64
+        data_tests: 
+          - unique
+          - not_null
 
   - name: stg_local_bike__categories
     description: "Liste les catégories de vélos vendus. Un ID correspond à une catégorie. "
     columns:
       - name: category_id
         data_type: int64
-        description: ""  
+        data_tests: 
+          - unique
+          - not_null  
         
   - name: stg_local_bike__customers
     description: "Liste les clients, avec le numéro de téléphone, l'email, l'adresse, la ville, l'état, et le zip code. 
@@ -20,82 +25,144 @@ models:
     columns:
       - name: customer_id
         data_type: int64
-        description: ""
+        data_tests: 
+          - unique
+          - not_null
 
   - name: stg_local_bike__order_items
-    description: ""
+    description: "Liste les différents produits commandés pour chaque commande, avec le détail de chaque produit, la quantité, et le prix du produit. 
+                  1615 order_id distincts : certaines commandes comportent plusieurs items. Il y a des promos entre 5 et 20%."
     columns:
       - name: order_id
         data_type: int64
-        description: ""
+        tests:
+          - relationships:
+            arguments:
+              to: ref('stg_local_bike__orders')
+              field: order_id
 
       - name: product_id
         data_type: int64
-        description: ""
+        tests:
+          - relationships:
+            arguments:
+              to: ref('stg_local_bike__products')
+              field: product_id
 
   - name: stg_local_bike__orders
-    description: ""
+    description: "Liste les commandes : 1615 lignes. Associe une commande à un client, à un statut. Date de commande, date requise (?), date d'envoi. 
+                  On a également le magasin et l'employé concernés. Les status entre 1 et 3 n'ont pas de date d'envoi. Les dates d'envoi arrivent au status 4.
+                  Required_date : correspond à la date minimum d'envoi ?"
     columns:
       - name: order_id
         data_type: int64
-        description: ""
+        data_tests: 
+          - unique
+          - not_null
 
       - name: customer_id
         data_type: int64
-        description: ""
+        tests:
+          - relationships:
+            arguments:
+              to: ref('stg_local_bike__customers')
+              field: customer_id
+      
+      - name: order_status
+        data_type: int64
+        tests: 
+          - accepted_values:
+            arguments: 
+              values: [1,2,3,4]
 
       - name: store_id
         data_type: int64
-        description: ""
+        tests:
+          - relationships:
+            arguments:
+              to: ref('stg_local_bike__stores')
+              field: store_id
 
       - name: staff_id
         data_type: int64
-        description: ""
+        tests:
+          - relationships:
+            arguments:
+              to: ref('stg_local_bike__staffs')
+              field: staff_id
 
   - name: stg_local_bike__products
-    description: ""
+    description: "Liste les produits, avec le nom, la marque, la catégorie, année du modèle, prix.
+                  321 produits différents."
     columns:
       - name: product_id
         data_type: int64
-        description: ""
+        data_tests: 
+          - unique
+          - not_null
 
       - name: brand_id
         data_type: int64
-        description: ""
+        tests:
+          - relationships:
+            arguments:
+              to: ref('stg_local_bike__brands')
+              field: brand_id
 
       - name: category_id
         data_type: int64
-        description: ""
+        tests:
+          - relationships:
+            arguments:
+              to: ref('stg_local_bike__categories')
+              field: category_id
 
   - name: stg_local_bike__staffs
-    description: ""
+    description: "Liste des employés avec nom prénom mail téléphone, magasin rattaché et manager"
     columns:
       - name: staff_id
         data_type: int64
-        description: ""
+        data_tests: 
+          - unique
+          - not_null
 
       - name: store_id
         data_type: int64
-        description: ""
+        tests:
+          - relationships:
+            arguments:
+              to: ref('stg_local_bike__stores')
+              field: store_id
 
       - name: manager_id
         data_type: string
         description: ""
 
   - name: stg_local_bike__stocks
-    description: ""
+    description: "Liste le stock par produit selon le magasin.
+                  313 produits distincts pour chaque magasins vs 321 dans la table produits"
     columns:
       - name: store_id
         data_type: int64
-        description: ""
+        tests:
+          - relationships:
+            arguments:
+              to: ref('stg_local_bike__stores')
+              field: store_id
 
       - name: product_id
         data_type: int64
-        description: ""
+        tests:
+          - relationships:
+            arguments:
+              to: ref('stg_local_bike__products')
+              field: product_id
 
   - name: stg_local_bike__stores
-    description: ""
+    description: "Liste les 3 magasins"
     columns:
       - name: store_id
         data_type: int64
-        description: ""
+        data_tests: 
+          - unique
+          - not_null
